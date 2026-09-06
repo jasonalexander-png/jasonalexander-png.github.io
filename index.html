@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Alexander Wijaya — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFAF7;
+    --ink:#16213E;
+    --ink-soft:#4A5568;
+    --accent:#BF8B2E;
+    --accent-soft:#F1E3C4;
+    --line:#E2DFD6;
+    --surface:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none !important; transition:none !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink-soft);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3{font-family:'Fraunces',serif; color:var(--ink); margin:0;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:.02em;
+    color:var(--accent);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,250,247,.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:18px; padding-bottom:18px;
+  }
+  nav .brand{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--ink); text-decoration:none;}
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0;}
+  nav a{text-decoration:none; font-size:15px; color:var(--ink-soft); padding:4px 2px;}
+  nav a:hover, nav a:focus-visible{color:var(--accent);}
+  nav a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px;}
+
+  /* ---------- HERO ---------- */
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:56px;
+    align-items:center;
+    padding-top:88px; padding-bottom:88px;
+  }
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(38px,5vw,58px); font-weight:600; line-height:1.08; letter-spacing:-.01em;}
+  .hero .role{font-size:20px; color:var(--ink-soft); margin-top:14px; font-weight:500;}
+  .hero p.pitch{max-width:46ch; margin-top:22px; font-size:16.5px;}
+  .hero .cta-row{display:flex; gap:14px; margin-top:34px;}
+  .btn{
+    display:inline-block; font-family:'Inter',sans-serif; font-weight:600; font-size:15px;
+    padding:13px 24px; border-radius:3px; text-decoration:none; border:1.5px solid transparent;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .btn-solid{background:var(--ink); color:var(--bg);}
+  .btn-solid:hover{background:var(--accent);}
+  .btn-line{border-color:var(--ink); color:var(--ink);}
+  .btn-line:hover{border-color:var(--accent); color:var(--accent);}
+
+  .photo-frame{position:relative; width:100%; max-width:300px; margin-left:auto;}
+  .photo-frame .offset{
+    position:absolute; top:22px; left:22px; width:100%; height:100%;
+    background:var(--accent-soft); border:1.5px solid var(--accent); border-radius:4px; z-index:0;
+  }
+  .photo-frame .photo{
+    position:relative; z-index:1; width:100%; aspect-ratio:4/5;
+    background:var(--surface); border:1.5px solid var(--ink); border-radius:4px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+    color:var(--ink-soft); text-align:center; padding:20px;
+  }
+  .photo-frame .photo span.tag{display:block;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:76px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{margin-bottom:40px; max-width:60ch;}
+  .section-head h2{font-size:30px; font-weight:600;}
+  .section-head .tag{display:block; margin-bottom:10px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:56px; align-items:start;}
+  .about-grid p{font-size:16.5px; max-width:56ch;}
+  .stats{display:flex; flex-direction:column; gap:22px; border-left:2px solid var(--accent); padding-left:22px;}
+  .stat b{display:block; font-family:'Fraunces',serif; font-size:26px; color:var(--ink); font-weight:600;}
+  .stat span{font-size:14px;}
+
+  /* ---------- SKILLS ---------- */
+  .pill-row{display:flex; flex-wrap:wrap; gap:12px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--ink);
+    border:1.5px solid var(--ink); padding:9px 16px; border-radius:999px; background:var(--surface);
+  }
+
+  /* ---------- PROJECTS / EXPERIENCE LISTS ---------- */
+  .list-item{
+    display:grid; grid-template-columns:200px 1fr; gap:32px;
+    padding:28px 0; border-top:1px solid var(--line);
+  }
+  .list-item:first-child{border-top:none;}
+  .list-item .meta{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent); padding-top:4px;}
+  .list-item h3{font-size:20px; font-weight:600; margin-bottom:8px;}
+  .list-item p{margin:0 0 10px 0; max-width:60ch;}
+  .list-item .stack{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .stack span{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line); padding:4px 10px; border-radius:3px;
+  }
+  .placeholder{color:#A8965E; font-style:italic;}
+  .repo-link{
+    display:inline-block; margin-top:12px; font-family:'IBM Plex Mono',monospace;
+    font-size:13px; text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:1px;
+  }
+  .repo-link:hover{color:var(--accent);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--ink); color:var(--bg);}
+  .contact h2{color:var(--bg); font-size:clamp(30px,4vw,44px); max-width:16ch;}
+  .contact .wrap{padding-top:80px; padding-bottom:80px;}
+  .contact-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:end; margin-top:36px;}
+  .contact-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .contact-list a{text-decoration:none; font-size:17px; border-bottom:1px solid rgba(251,250,247,.25); padding-bottom:6px; display:inline-block;}
+  .contact-list a:hover{border-color:var(--accent); color:var(--accent);}
+  footer{text-align:center; padding:22px 0; font-size:13px; color:var(--ink-soft);}
+
+  @media (max-width:760px){
+    .hero .wrap{grid-template-columns:1fr; padding-top:56px; padding-bottom:56px;}
+    .photo-frame{margin:0 auto;}
+    .about-grid{grid-template-columns:1fr; gap:36px;}
+    .stats{border-left:none; border-top:2px solid var(--accent); padding-left:0; padding-top:20px; flex-direction:row; flex-wrap:wrap;}
+    .list-item{grid-template-columns:1fr; gap:8px;}
+    .contact-grid{grid-template-columns:1fr;}
+    nav ul{gap:16px;}
+    nav .wrap{flex-direction:column; gap:10px; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">JW</a>
+    <ul>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#skills">Keahlian</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#experience">Organisasi</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="tag">COMPUTER SCIENCE STUDENT</span>
+      <h1>Jason Alexander<br>Wijaya</h1>
+      <p class="role">Mahasiswa Ilmu Komputer, BINUS University</p>
+      <p class="pitch">Terbiasa bekerja dengan Python dan MySQL, aktif di organisasi kampus dan kegiatan volunteer. Sedang mencari kesempatan magang di bidang teknologi informasi.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#projects">Lihat Proyek</a>
+        <a class="btn btn-line" href="#contact">Hubungi Saya</a>
+      </div>
+    </div>
+    <div class="photo-frame">
+      <div class="offset"></div>
+      <div class="photo">
+        <span class="tag">FOTO</span>
+        <span class="tag">3:4</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="section-head">
+        <span class="tag">TENTANG SAYA</span>
+        <h2>Profil Singkat</h2>
+      </div>
+      <p>Mahasiswa Ilmu Komputer di BINUS University dengan pengalaman dasar pemrograman Python dan manajemen basis data MySQL. Aktif dalam organisasi kemahasiswaan (HIMTI) dan kegiatan volunteer. Mencari kesempatan magang di bidang teknologi informasi untuk menerapkan dan mengembangkan kemampuan teknis serta berkontribusi secara nyata dalam tim.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>Semester 5</b><span>BINUS University</span></div>
+      <div class="stat"><b>3.50 / 4.00</b><span>IPK</span></div>
+      <div class="stat"><b>2024 – 2028</b><span>Masa Studi</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">KEAHLIAN</span>
+      <h2>Yang Saya Kuasai</h2>
+    </div>
+    <div class="pill-row">
+      <span class="pill">Python</span>
+      <span class="pill">MySQL</span>
+      <span class="pill">Manajemen Basis Data</span>
+      <span class="pill placeholder">+ skill lain kamu</span>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">PROYEK</span>
+      <h2>Beberapa Proyek Kuliah</h2>
+    </div>
+
+    <div class="list-item">
+      <div class="meta placeholder">[Bulan/Tahun]</div>
+      <div>
+        <h3 class="placeholder">[Nama Proyek 1]</h3>
+        <p class="placeholder">[Deskripsi singkat 1–2 kalimat: masalah apa yang diselesaikan, dan hasilnya apa]</p>
+        <div class="stack"><span>Python</span><span>MySQL</span></div>
+        <a class="repo-link placeholder" href="#">[link repo GitHub]</a>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="meta placeholder">[Bulan/Tahun]</div>
+      <div>
+        <h3 class="placeholder">[Nama Proyek 2]</h3>
+        <p class="placeholder">[Deskripsi singkat 1–2 kalimat]</p>
+        <div class="stack"><span>[Tools]</span></div>
+        <a class="repo-link placeholder" href="#">[link repo GitHub]</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">ORGANISASI &amp; VOLUNTEER</span>
+      <h2>Kegiatan &amp; Kontribusi</h2>
+    </div>
+
+    <div class="list-item">
+      <div class="meta placeholder">[Periode aktif]</div>
+      <div>
+        <h3>Anggota — HIMTI BINUS</h3>
+        <p class="placeholder">[Himpunan Mahasiswa Teknik Informatika — isi 1 baris peran/kontribusi kamu]</p>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="meta placeholder">[Periode]</div>
+      <div>
+        <h3>Volunteer — Perayaan Waisak, Candi Borobudur</h3>
+        <p class="placeholder">[isi 1 baris peran/kontribusi kamu]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="tag" style="color:var(--accent-soft)">KONTAK</span>
+    <h2>Terbuka untuk kesempatan magang di bidang teknologi informasi.</h2>
+    <div class="contact-grid">
+      <ul class="contact-list">
+        <li><a href="mailto:jason.jzhu168@gmail.com">jason.jzhu168@gmail.com</a></li>
+        <li><a href="tel:082322631688">0823-2263-1688</a></li>
+        <li><span style="opacity:.75">Jakarta, Indonesia</span></li>
+      </ul>
+      <ul class="contact-list">
+        <li><span class="placeholder" style="opacity:.75">[Link GitHub kamu]</span></li>
+        <li><span class="placeholder" style="opacity:.75">[Link LinkedIn kamu]</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Jason Alexander Wijaya</footer>
+
+</body>
+</html>
